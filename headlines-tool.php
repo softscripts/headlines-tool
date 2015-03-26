@@ -22,6 +22,7 @@ add_action('admin_menu','ht_backend_menu');
 
 function ht_backend_menu() {
 	add_menu_page('Headlines Tool','Headlines Tool','manage_options','ht_entries','ht_entries', 'dashicons-menu', 24);
+	add_submenu_page('ht_entries','Categories','Categories','manage_options','ht_categories','ht_categories');
 	add_submenu_page('ht_entries','Shortcodes','Shortcodes','manage_options','ht_shortcodes','ht_shortcodes');
 }
 
@@ -32,7 +33,7 @@ function ht_plugin_install() {
 	global $wpdb; // do NOT forget this global
  
 	if($wpdb->get_var("show tables like '". HT_CATEGORY_TABLE) != HT_CATEGORY_TABLE)  {
-			$wpdb->query("CREATE TABLE IF NOT EXISTS `". HT_CATEGORY_TABLE . "` (`cid` INT NOT NULL AUTO_INCREMENT PRIMARY KEY , `title` VARCHAR( 250 ) NOT NULL, `created` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP)");
+			$wpdb->query("CREATE TABLE IF NOT EXISTS `". HT_CATEGORY_TABLE . "` (`cid` INT NOT NULL AUTO_INCREMENT PRIMARY KEY , `title` VARCHAR( 250 ) NOT NULL, `url` TEXT NOT NULL, `created` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP)");
 		}
 		if($wpdb->get_var("show tables like '". HT_ENTRIES_TABLE) != HT_ENTRIES_TABLE)  {
 			$wpdb->query("CREATE TABLE IF NOT EXISTS `". HT_ENTRIES_TABLE . "` (`id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY , `cid` INT NOT NULL, `title` VARCHAR( 250 ) NOT NULL, `comments` TEXT NOT NULL, `url` VARCHAR( 250 ) NOT NULL, `date` VARCHAR( 250 ) NOT NULL, `created` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, `status` VARCHAR( 200 ) NOT NULL)");

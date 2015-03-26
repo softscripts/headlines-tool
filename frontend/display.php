@@ -45,13 +45,16 @@ function headlines_tool( $atts, $content = null ) {
 	}
 	else {
 		if(!empty($cat)) {
+			$ht_page	= $_REQUEST['ht_page'];
+			if(empty($ht_page)) { $ht_page = 1; }
+			$ht_page_current = ($ht_page-1)*$ht_page_limit;
 			$category = ht_get_category($cat);
-			$Allentries = ht_get_entries($category->cid);
-			$entries = ht_get_limited_entries($category->cid,0,$entry_limit);
+			$total_entries = count(ht_get_entries($category->cid));
+			$total_pages	= round($total_entries/$ht_page_limit);
+			$entries = ht_get_limited_entries($category->cid,$ht_page_current,$ht_page_limit);
 			if(count($entries) > 0) {
 				$output.= '<div class="link-summary">';
-					$output.= '<h2 class="link-summary-title">'.stripslashes($category->title).'</h2>';
-					$output.= '<div class="link-summary-content" id="ht-link-category-'.$category->cid.'">';
+					$output.= '<div class="link-summary-content collapse in" id="ht-link-category-'.$category->cid.'">';
 					foreach($entries as $entry) {
 						$output.= '<p	class="link-summary-content-item">';
 							$output.= '<a href="'.$entry->url.'" target="_blank" rel="nofollow" title="'.stripslashes($entry->title).'">'.stripslashes($entry->title).'</a>';
@@ -61,18 +64,23 @@ function headlines_tool( $atts, $content = null ) {
 							}
 						$output.= '</p>';
 					}
-						if(count($Allentries) > $entry_limit)   {
-							$output.= '<p	class="link-summary-content-read-more"><a href="'.ht_url('ht_cat='.$category->cid.'#ht-main').'" rel="nofollow">See More..</a></p>';
-						}
+					if($total_entries > $ht_page_limit) {
+					$output.= '<p	class="link-summary-content-pagination">';
+					$output.= PaginationLinks::create($ht_page, $total_pages, 10, '<a href="'.ht_url('ht_page=%d').'" rel="nofollow">%d</a>');
+					$output.= '</p>';
+					}
 					$output.= '</div>';
 				$output.= '</div>';
 			}
-
 		}
 		else {
 			if(count($categories) > 0) {
 				foreach($categories as $category) {
 					$Allentries = ht_get_entries($category->cid);
+					$category_url = $category->url;
+					if(empty($category_url)) {
+						$category_url = ht_url('ht_cat='.$category->cid.'#ht-main');
+					}
 					$entries = ht_get_limited_entries($category->cid,0,$entry_limit);
 					if(count($entries) > 0) {
 						$output.= '<div class="link-summary">';
@@ -88,7 +96,7 @@ function headlines_tool( $atts, $content = null ) {
 								$output.= '</p>';
 							}
 								if(count($Allentries) > $entry_limit) { 
-								$output.= '<p	class="link-summary-content-read-more"><a href="'.ht_url('ht_cat='.$category->cid.'#ht-main').'" rel="nofollow">See More..</a></p>';
+								$output.= '<p	class="link-summary-content-read-more"><a href="'.$category_url.'" rel="nofollow">See More..</a></p>';
 								}
 							$output.= '</div>';
 						$output.= '</div>';

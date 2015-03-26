@@ -3,6 +3,7 @@
   Plugin Main Core Files
 ***********************/
 require_once ( 'entries.php' ); // Entries
+require_once ( 'categories.php' ); // Cateroies
 require_once ( 'shortcodes.php' ); // Plugin Settings
 
 

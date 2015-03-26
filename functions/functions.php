@@ -38,6 +38,28 @@ function ht_status_info($step,$status) {
 				break;
 			} 
 		break;
+		case 'categories':
+			switch($status) {
+				case 'info':
+		    	$status_msg = '<strong>Welcome!</strong> Start creating categories.';
+				break;
+				case 'alert':
+		    	$status_msg = '<strong>Alert!</strong> There are no categories.';
+				break;
+				case 'success-add':
+		    	$status_msg = '<strong>Success!</strong> You have created new category.';
+				break;
+				case 'success-update':
+		    	$status_msg = '<strong>Success!</strong> You have updated category.';
+				break;
+				case 'success-delete':
+		    	$status_msg = 'Category deleted.';
+				break;
+				case 'error':
+		    	$status_msg = '<strong>Error!</strong> Something went wrong. Please try again';
+				break;
+			} 
+		break;
 	}
 	
 	$status = str_replace('-add','',$status);
@@ -227,7 +249,7 @@ function ht_create_category($data) {
  Check and Update Category and return ID
  :- Args : Data Array
 ******************************************/
-function ht_update_category($cat_id) {
+function ht_update_category($cat_id,$data) {
 	global $wpdb;
 	$table = HT_CATEGORY_TABLE;
 	$where = array('cid'=>$cat_id);
