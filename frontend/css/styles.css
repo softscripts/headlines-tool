@@ -1,0 +1,56 @@
+.link-summary {}
+.link-summary h2.link-summary-title {
+	margin:0;
+	padding:10px 20px;
+	font-size:1.2em;
+	font-weight:bold;
+	color:#fff;
+	background:#06577d url('../img/link_summary_title_bg.png') repeat-x left top;
+	-webkit-transition: all 0.35s ease;
+	-moz-transition: all 0.35s ease;
+	-o-transition: all 0.35s ease;
+	transition: all 0.35s ease;
+}
+
+.link-summary-content {
+	margin-bottom:20px;
+	border:1px solid #ccc;
+}
+#ht-main .link-summary-content-item {
+	margin:0;
+	padding:10px 20px;
+	border-bottom:1px solid #ccc;
+	line-height: normal;
+}
+
+#ht-main .link-summary-content-pagination {
+	margin:0;
+	padding:10px 20px;
+	border-bottom:1px solid #ccc;
+	text-align: center;
+}
+
+.link-summary-content-date {
+	color:#999;
+	font-size:0.9em;
+}
+.link-summary-content-description {
+	display: block;
+	font-style:italic;
+}
+#ht-main .link-summary-content-read-more {
+	margin:0;
+	padding:10px 20px;
+	font-style:italic;
+	font-weight:bold;
+}
+
+.link-category {}
+.link-category-content {}
+.link-category-content-item {}
+.link-category-content-date {
+	color:#999;font-size:0.9em;
+}
+.link-category-content-description {
+	font-style:italic;
+}
